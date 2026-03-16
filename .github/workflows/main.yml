@@ -9,13 +9,14 @@ on:
     branches:
       - main
 
+      - master
 permissions:
   contents: read
 
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - run: corepack enable
@@ -28,7 +29,7 @@ jobs:
       - run: yarn test:types
   types:
     name: Types
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - run: corepack enable
@@ -49,8 +50,8 @@ jobs:
           - 18
           - 16
         os:
-          - ubuntu-latest
-          - windows-latest
+          - ubuntu-24.04
+          - windows-2025
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
@@ -66,7 +67,7 @@ jobs:
       - run: yarn test:bundles
   regression:
     name: Test regressions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     concurrency:
       group: ${{ github.workflow }}-${{ github.ref }}
       cancel-in-progress: true
